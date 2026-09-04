@@ -1,5 +1,4 @@
-
-
+```html
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -17,7 +16,6 @@
 body {
     margin: 0;
     min-height: 100vh;
-
     font-family: Arial, sans-serif;
 
     background:
@@ -40,7 +38,6 @@ body {
 
 h1 {
     margin: 0 0 15px;
-
     font-size: 38px;
 
     text-shadow:
@@ -49,19 +46,17 @@ h1 {
 
 
 /* =========================
-   المعلومات فوق اللعبة
+   المعلومات
 ========================= */
 
 .top-bar {
     display: flex;
     gap: 10px;
-
     margin-bottom: 12px;
 }
 
 .box {
     flex: 1;
-
     padding: 10px;
 
     background: rgba(255,255,255,0.14);
@@ -84,7 +79,6 @@ h1 {
 
 .value {
     margin-top: 3px;
-
     font-size: 24px;
     font-weight: bold;
 }
@@ -104,7 +98,6 @@ h1 {
     height: 500px;
 
     position: relative;
-
     overflow: hidden;
 
     border:
@@ -145,13 +138,9 @@ h1 {
 
 .cloud {
     position: absolute;
-
     font-size: 45px;
-
     opacity: 0.8;
-
     user-select: none;
-
     pointer-events: none;
 }
 
@@ -183,7 +172,6 @@ h1 {
     height: 55px;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
 
@@ -260,13 +248,12 @@ h1 {
 
 
 /* =========================
-   شاشة الفوز والخسارة
+   شاشة النتيجة
 ========================= */
 
 #resultScreen {
 
     position: absolute;
-
     inset: 0;
 
     background:
@@ -275,9 +262,7 @@ h1 {
     display: none;
 
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
 
     z-index: 20;
@@ -313,16 +298,13 @@ h1 {
 #resultTitle {
 
     font-size: 42px;
-
     margin: 10px 0;
 }
 
 #resultText {
 
     font-size: 20px;
-
     line-height: 1.7;
-
     margin-bottom: 20px;
 }
 
@@ -367,6 +349,70 @@ button:hover {
 
 
 /* =========================
+   أزرار الهاتف
+========================= */
+
+.mobile-controls {
+
+    display: none;
+
+    margin-top: 15px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.controls-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        65px 65px 65px;
+
+    grid-template-rows:
+        65px 65px;
+
+    gap: 8px;
+}
+
+.control-btn {
+
+    padding: 0;
+
+    width: 65px;
+    height: 65px;
+
+    font-size: 30px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.25);
+
+    color: white;
+
+    border:
+        2px solid rgba(255,255,255,0.5);
+
+    touch-action: none;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn:active {
+
+    transform: scale(0.9);
+
+    background:
+        rgba(255,255,255,0.45);
+}
+
+
+/* =========================
    التعليمات
 ========================= */
 
@@ -381,7 +427,7 @@ button:hover {
 
 
 /* =========================
-   شاشات صغيرة
+   الهاتف
 ========================= */
 
 @media (max-width: 700px) {
@@ -406,6 +452,14 @@ button:hover {
         font-size: 32px;
     }
 
+    .mobile-controls {
+        display: flex;
+    }
+
+    .instructions {
+        display: none;
+    }
+
 }
 
 </style>
@@ -413,7 +467,6 @@ button:hover {
 
 
 <body>
-
 
 <div class="container">
 
@@ -432,11 +485,8 @@ button:hover {
                 المستوى
             </div>
 
-            <div class="value"
-                 id="level">
-
+            <div class="value" id="level">
                 1
-
             </div>
 
         </div>
@@ -448,11 +498,8 @@ button:hover {
                 النجوم
             </div>
 
-            <div class="value"
-                 id="score">
-
+            <div class="value" id="score">
                 0 / 10
-
             </div>
 
         </div>
@@ -464,11 +511,8 @@ button:hover {
                 الوقت
             </div>
 
-            <div class="value"
-                 id="timer">
-
+            <div class="value" id="timer">
                 3
-
             </div>
 
         </div>
@@ -479,9 +523,6 @@ button:hover {
     <!-- اللعبة -->
 
     <div id="game">
-
-
-        <!-- الغيوم -->
 
         <div class="cloud cloud1">
             ☁️
@@ -496,14 +537,10 @@ button:hover {
         </div>
 
 
-        <!-- الشخصية -->
-
         <div id="player">
-           😋
+            😋
         </div>
 
-
-        <!-- النجمة -->
 
         <div id="star">
             ⭐
@@ -526,11 +563,47 @@ button:hover {
                 لقد أكملت المستوى!
             </div>
 
-            <button
-                id="resultButton">
-
+            <button id="resultButton">
                 المستوى التالي
+            </button>
 
+        </div>
+
+    </div>
+
+
+    <!-- أزرار الهاتف -->
+
+    <div class="mobile-controls">
+
+        <div class="controls-grid">
+
+            <div></div>
+
+            <button
+                class="control-btn"
+                data-key="ArrowUp">
+                ⬆️
+            </button>
+
+            <div></div>
+
+            <button
+                class="control-btn"
+                data-key="ArrowLeft">
+                ⬅️
+            </button>
+
+            <button
+                class="control-btn"
+                data-key="ArrowDown">
+                ⬇️
+            </button>
+
+            <button
+                class="control-btn"
+                data-key="ArrowRight">
+                ➡️
             </button>
 
         </div>
@@ -539,25 +612,20 @@ button:hover {
 
 
     <div id="message">
-
         استخدم الأسهم للوصول إلى النجمة 🎮
-
     </div>
 
 
     <div class="instructions">
-
         اضغط باستمرار على
         ⬅️ ➡️ ⬆️ ⬇️
         للتحرك
-
     </div>
 
 </div>
 
 
 <script>
-
 
 /* =========================
    عناصر اللعبة
@@ -639,7 +707,7 @@ let y = 200;
 
 
 /* =========================
-   سرعة الحركة
+   السرعة
 ========================= */
 
 const speed = 5;
@@ -679,7 +747,7 @@ let gameOver = false;
 
 
 /* =========================
-   الضغط على الأسهم
+   أسهم الكمبيوتر
 ========================= */
 
 document.addEventListener(
@@ -703,10 +771,6 @@ document.addEventListener(
 );
 
 
-/* =========================
-   رفع الإصبع
-========================= */
-
 document.addEventListener(
     "keyup",
     function(event) {
@@ -727,14 +791,113 @@ document.addEventListener(
 
 
 /* =========================
-   الحركة السلسة
+   أزرار الهاتف
+========================= */
+
+const mobileButtons =
+    document.querySelectorAll(".control-btn");
+
+
+mobileButtons.forEach(function(button) {
+
+    const key =
+        button.dataset.key;
+
+
+    button.addEventListener(
+        "touchstart",
+        function(event) {
+
+            event.preventDefault();
+
+            keys[key] = true;
+
+        },
+        { passive: false }
+    );
+
+
+    button.addEventListener(
+        "touchend",
+        function(event) {
+
+            event.preventDefault();
+
+            keys[key] = false;
+
+        },
+        { passive: false }
+    );
+
+
+    button.addEventListener(
+        "touchcancel",
+        function(event) {
+
+            event.preventDefault();
+
+            keys[key] = false;
+
+        },
+        { passive: false }
+    );
+
+
+    button.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            if (event.pointerType !== "mouse") {
+
+                event.preventDefault();
+
+                keys[key] = true;
+
+            }
+
+        }
+    );
+
+
+    button.addEventListener(
+        "pointerup",
+        function(event) {
+
+            if (event.pointerType !== "mouse") {
+
+                event.preventDefault();
+
+                keys[key] = false;
+
+            }
+
+        }
+    );
+
+
+    button.addEventListener(
+        "pointercancel",
+        function(event) {
+
+            if (event.pointerType !== "mouse") {
+
+                keys[key] = false;
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================
+   الحركة
 ========================= */
 
 function gameLoop() {
 
-
     if (!gameOver) {
-
 
         let dx = 0;
 
@@ -742,36 +905,23 @@ function gameLoop() {
 
 
         if (keys.ArrowRight) {
-
             dx += 1;
-
         }
-
 
         if (keys.ArrowLeft) {
-
             dx -= 1;
-
         }
-
 
         if (keys.ArrowDown) {
-
             dy += 1;
-
         }
-
 
         if (keys.ArrowUp) {
-
             dy -= 1;
-
         }
 
 
-        /*
-        ضبط الحركة القطرية
-        */
+        /* الحركة القطرية */
 
         if (
             dx !== 0 &&
@@ -784,21 +934,18 @@ function gameLoop() {
             dx *= diagonal;
 
             dy *= diagonal;
+
         }
 
 
-        /*
-        تحريك الشخصية
-        */
+        /* تحريك الشخصية */
 
         x += dx * speed;
 
         y += dy * speed;
 
 
-        /*
-        حدود اللعبة
-        */
+        /* حدود اللعبة */
 
         const maxX =
             game.clientWidth -
@@ -821,9 +968,7 @@ function gameLoop() {
         );
 
 
-        /*
-        تحديث المكان
-        */
+        /* تحديث المكان */
 
         player.style.left =
             x + "px";
@@ -832,9 +977,7 @@ function gameLoop() {
             y + "px";
 
 
-        /*
-        التحقق من النجمة
-        */
+        /* فحص النجمة */
 
         checkCollision();
 
@@ -854,10 +997,8 @@ function gameLoop() {
 
 function checkCollision() {
 
-
     const playerRect =
         player.getBoundingClientRect();
-
 
     const starRect =
         star.getBoundingClientRect();
@@ -893,7 +1034,6 @@ function checkCollision() {
 
 function collectStar() {
 
-
     if (gameOver) return;
 
 
@@ -912,12 +1052,7 @@ function collectStar() {
         "🎉 رائع! حصلت على نجمة!";
 
 
-    /*
-    هل انتهى المستوى؟
-    */
-
     if (score >= target) {
-
 
         clearInterval(timer);
 
@@ -943,16 +1078,7 @@ function collectStar() {
     }
 
 
-    /*
-    نجمة جديدة
-    */
-
     moveStar();
-
-
-    /*
-    إعادة المؤقت إلى 3
-    */
 
     startTimer();
 
@@ -960,15 +1086,13 @@ function collectStar() {
 
 
 /* =========================
-   تغيير مكان النجمة
+   مكان النجمة
 ========================= */
 
 function moveStar() {
 
-
     const maxX =
         game.clientWidth - 65;
-
 
     const maxY =
         game.clientHeight - 75;
@@ -977,20 +1101,19 @@ function moveStar() {
     const newX =
         Math.floor(
             Math.random() *
-            maxX
+            Math.max(1, maxX)
         );
 
 
     const newY =
         Math.floor(
             Math.random() *
-            maxY
+            Math.max(1, maxY)
         );
 
 
     star.style.left =
         newX + "px";
-
 
     star.style.top =
         newY + "px";
@@ -999,11 +1122,10 @@ function moveStar() {
 
 
 /* =========================
-   مؤقت 3 ثوانٍ
+   المؤقت
 ========================= */
 
 function startTimer() {
-
 
     clearInterval(timer);
 
@@ -1019,7 +1141,6 @@ function startTimer() {
 
         function() {
 
-
             if (gameOver) return;
 
 
@@ -1032,9 +1153,7 @@ function startTimer() {
 
             if (timeLeft <= 0) {
 
-
                 clearInterval(timer);
-
 
                 showLose();
 
@@ -1055,9 +1174,7 @@ function startTimer() {
 
 function showLose() {
 
-
     gameOver = true;
-
 
     clearInterval(timer);
 
@@ -1098,7 +1215,6 @@ function showLose() {
 
 function showLevelComplete() {
 
-
     gameOver = true;
 
 
@@ -1136,12 +1252,9 @@ function showLevelComplete() {
 
 function nextLevel() {
 
-
     currentLevel++;
 
-
     score = 0;
-
 
     gameOver = false;
 
@@ -1167,10 +1280,6 @@ function nextLevel() {
         "none";
 
 
-    /*
-    إعادة الشخصية
-    */
-
     x = 50;
 
     y = 200;
@@ -1179,21 +1288,11 @@ function nextLevel() {
     player.style.left =
         x + "px";
 
-
     player.style.top =
         y + "px";
 
 
-    /*
-    نجمة جديدة
-    */
-
     moveStar();
-
-
-    /*
-    بدء المؤقت
-    */
 
     startTimer();
 
@@ -1206,9 +1305,7 @@ function nextLevel() {
 
 function showFinalWin() {
 
-
     gameOver = true;
-
 
     clearInterval(timer);
 
@@ -1256,18 +1353,14 @@ function showFinalWin() {
 
 function restartGame() {
 
-
     clearInterval(timer);
 
 
     currentLevel = 0;
 
-
     score = 0;
 
-
     timeLeft = 3;
-
 
     gameOver = false;
 
@@ -1292,10 +1385,6 @@ function restartGame() {
         "none";
 
 
-    /*
-    إعادة الشخصية
-    */
-
     x = 50;
 
     y = 200;
@@ -1304,21 +1393,11 @@ function restartGame() {
     player.style.left =
         x + "px";
 
-
     player.style.top =
         y + "px";
 
 
-    /*
-    نجمة جديدة
-    */
-
     moveStar();
-
-
-    /*
-    بدء المؤقت
-    */
 
     startTimer();
 
@@ -1335,8 +1414,8 @@ startTimer();
 
 gameLoop();
 
-
 </script>
 
 </body>
-  </html>
+</html>
+```
