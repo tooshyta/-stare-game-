@@ -1,6 +1,7 @@
-```html
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,418 +12,262 @@
 
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
     font-family: Arial, sans-serif;
-
-    background:
-        radial-gradient(circle at top, #4facfe, #141e30 70%);
-
+    background: linear-gradient(135deg, #4facfe, #6a5acd);
     color: white;
-
     display: flex;
     justify-content: center;
-    align-items: center;
-
+    align-items: flex-start;
     padding: 15px;
+    overflow-x: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     text-align: center;
 }
 
 h1 {
-    margin: 0 0 15px;
-    font-size: 38px;
-
-    text-shadow:
-        0 4px 12px rgba(0,0,0,0.5);
+    margin: 5px 0 12px;
+    font-size: 32px;
 }
-
-
-/* =========================
-   المعلومات
-========================= */
 
 .top-bar {
     display: flex;
+    justify-content: center;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .box {
-    flex: 1;
-    padding: 10px;
-
-    background: rgba(255,255,255,0.14);
-
-    border:
-        1px solid rgba(255,255,255,0.25);
-
-    border-radius: 15px;
-
-    backdrop-filter: blur(8px);
-
-    box-shadow:
-        0 7px 20px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.18);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 12px;
+    padding: 8px 18px;
+    min-width: 100px;
 }
 
 .label {
-    font-size: 14px;
-    opacity: 0.8;
+    display: block;
+    font-size: 13px;
 }
 
 .value {
-    margin-top: 3px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
 }
 
-#timer {
-    color: #ffe082;
-}
-
-
-/* =========================
-   منطقة اللعبة
-========================= */
+/* مساحة اللعبة */
 
 #game {
-
-    width: 100%;
-    height: 500px;
-
     position: relative;
+    width: 100%;
+    height: 560px;
     overflow: hidden;
 
-    border:
-        4px solid rgba(255,255,255,0.9);
-
-    border-radius: 25px;
+    border: 4px solid white;
+    border-radius: 22px;
 
     background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.7) 0 2px, transparent 3px),
+        linear-gradient(180deg, #101d4d, #182b6b);
 
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(255,255,255,0.7) 0 2px,
-            transparent 3px
-        ),
+    background-size: 120px 120px, 180px 180px, 200px 200px, 100% 100%;
 
-        radial-gradient(
-            circle at 80% 30%,
-            rgba(255,255,255,0.6) 0 2px,
-            transparent 3px
-        ),
-
-        linear-gradient(
-            to bottom,
-            #4facfe 0%,
-            #2f80ed 55%,
-            #66bb6a 55%,
-            #2e7d32 100%
-        );
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.35);
+    touch-action: none;
 }
 
-
-/* =========================
-   الغيوم
-========================= */
-
-.cloud {
-    position: absolute;
-    font-size: 45px;
-    opacity: 0.8;
-    user-select: none;
-    pointer-events: none;
-}
-
-.cloud1 {
-    top: 35px;
-    left: 70px;
-}
-
-.cloud2 {
-    top: 90px;
-    right: 90px;
-}
-
-.cloud3 {
-    top: 150px;
-    left: 45%;
-}
-
-
-/* =========================
-   الشخصية
-========================= */
+/* اللاعب */
 
 #player {
+    position: absolute;
 
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+
+    user-select: none;
+    pointer-events: none;
+
+    transition: transform 0.05s linear;
+}
+
+/* النجمة */
+
+#star {
     position: absolute;
 
     width: 55px;
     height: 55px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    font-size: 44px;
-
-    user-select: none;
-
-    z-index: 5;
-
-    pointer-events: none;
-
-    filter:
-        drop-shadow(
-            0 5px 5px rgba(0,0,0,0.35)
-        );
-}
-
-
-/* =========================
-   النجمة
-========================= */
-
-#star {
-
-    position: absolute;
-
-    font-size: 48px;
+    font-size: 45px;
 
     user-select: none;
-
-    z-index: 4;
-
     pointer-events: none;
-
-    animation:
-        starFloat 0.9s infinite alternate ease-in-out;
-
-    filter:
-        drop-shadow(
-            0 0 12px gold
-        );
 }
 
-@keyframes starFloat {
-
-    from {
-        transform:
-            translateY(0)
-            rotate(-5deg);
-    }
-
-    to {
-        transform:
-            translateY(-8px)
-            rotate(5deg);
-    }
-}
-
-
-/* =========================
-   الرسالة
-========================= */
+/* رسالة */
 
 #message {
-
-    min-height: 35px;
-
-    margin-top: 12px;
-
-    font-size: 20px;
-
+    margin-top: 8px;
+    font-size: 18px;
     font-weight: bold;
 }
 
+/* شاشة النتيجة */
 
-/* =========================
-   شاشة النتيجة
-========================= */
-
-#resultScreen {
-
+#result {
     position: absolute;
+
     inset: 0;
 
-    background:
-        rgba(10,15,30,0.88);
+    background: rgba(0,0,0,0.75);
 
     display: none;
 
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
 
     z-index: 20;
-
-    backdrop-filter: blur(7px);
 
     padding: 20px;
 }
 
 #resultEmoji {
-
-    font-size: 100px;
-
-    animation:
-        pop 0.5s ease;
-}
-
-@keyframes pop {
-
-    0% {
-        transform: scale(0);
-    }
-
-    80% {
-        transform: scale(1.15);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+    font-size: 85px;
 }
 
 #resultTitle {
-
-    font-size: 42px;
+    font-size: 34px;
     margin: 10px 0;
 }
 
 #resultText {
-
     font-size: 20px;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
-
-/* =========================
-   الأزرار
-========================= */
-
-button {
-
+#restart {
     border: none;
-
-    padding: 13px 28px;
-
     border-radius: 15px;
 
-    font-size: 19px;
+    padding: 13px 25px;
 
+    font-size: 18px;
     font-weight: bold;
 
-    cursor: pointer;
-
-    background: white;
-
+    background: #ffd43b;
     color: #222;
 
-    box-shadow:
-        0 8px 20px rgba(0,0,0,0.3);
-
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+    cursor: pointer;
 }
 
-button:hover {
-
-    transform: scale(1.08);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,0.4);
-}
-
-
-/* =========================
-   أزرار الهاتف
-========================= */
+/* أزرار الهاتف */
 
 .mobile-controls {
-
     display: none;
-
-    margin-top: 15px;
-
     justify-content: center;
-    align-items: center;
+    margin-top: 10px;
 }
 
 .controls-grid {
-
     display: grid;
 
-    grid-template-columns:
-        65px 65px 65px;
+    grid-template-columns: 65px 65px 65px;
+    grid-template-rows: 65px 65px;
 
-    grid-template-rows:
-        65px 65px;
-
-    gap: 8px;
+    gap: 6px;
 }
 
 .control-btn {
-
-    padding: 0;
-
     width: 65px;
     height: 65px;
 
-    font-size: 30px;
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 16px;
 
-    border-radius: 18px;
-
-    background:
-        rgba(255,255,255,0.25);
-
+    background: rgba(255,255,255,0.25);
     color: white;
 
-    border:
-        2px solid rgba(255,255,255,0.5);
+    font-size: 30px;
+    font-weight: bold;
 
-    touch-action: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     user-select: none;
 
-    -webkit-user-select: none;
+    touch-action: manipulation;
 
-    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
 }
 
 .control-btn:active {
-
-    transform: scale(0.9);
-
-    background:
-        rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.5);
+    transform: scale(0.92);
 }
 
+/* توزيع الأزرار */
 
-/* =========================
-   التعليمات
-========================= */
+.up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.down {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+/* التعليمات */
 
 .instructions {
-
     margin-top: 12px;
 
-    font-size: 17px;
+    background: rgba(255,255,255,0.15);
 
-    opacity: 0.9;
+    border-radius: 12px;
+
+    padding: 10px;
+
+    font-size: 15px;
 }
 
 
@@ -432,34 +277,146 @@ button:hover {
 
 @media (max-width: 700px) {
 
-    h1 {
-        font-size: 28px;
+    body {
+        padding: 5px;
+        align-items: flex-start;
     }
 
-    #game {
-        height: 430px;
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+
+    h1 {
+        font-size: 25px;
+        margin: 4px 0 8px;
+    }
+
+    .top-bar {
+        gap: 5px;
+        margin-bottom: 7px;
+    }
+
+    .box {
+        min-width: 85px;
+        padding: 6px 4px;
+        border-radius: 10px;
+    }
+
+    .label {
+        font-size: 11px;
     }
 
     .value {
-        font-size: 20px;
+        font-size: 18px;
     }
 
-    #resultEmoji {
-        font-size: 75px;
+    /* تكبير اللعبة على الهاتف */
+
+    #game {
+        width: 100%;
+
+        height: 68vh;
+
+        min-height: 450px;
+        max-height: 650px;
+
+        border-width: 3px;
+        border-radius: 18px;
     }
 
-    #resultTitle {
-        font-size: 32px;
+    #player {
+        width: 58px;
+        height: 58px;
+        font-size: 43px;
     }
+
+    #star {
+        width: 55px;
+        height: 55px;
+        font-size: 44px;
+    }
+
+    /* إظهار أزرار اللمس */
 
     .mobile-controls {
         display: flex;
     }
 
+    .controls-grid {
+        grid-template-columns: 58px 58px 58px;
+        grid-template-rows: 58px 58px;
+        gap: 5px;
+    }
+
+    .control-btn {
+        width: 58px;
+        height: 58px;
+        font-size: 27px;
+        border-radius: 14px;
+    }
+
+    #message {
+        font-size: 15px;
+        margin-top: 6px;
+    }
+
+    /* إخفاء التعليمات حتى تبقى الشاشة واسعة */
+
     .instructions {
         display: none;
     }
 
+    #resultEmoji {
+        font-size: 65px;
+    }
+
+    #resultTitle {
+        font-size: 28px;
+    }
+
+    #resultText {
+        font-size: 17px;
+    }
+
+    #restart {
+        font-size: 17px;
+        padding: 12px 22px;
+    }
+}
+
+
+/* الهواتف الصغيرة جدًا */
+
+@media (max-width: 380px) {
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .box {
+        min-width: 78px;
+    }
+
+    .value {
+        font-size: 16px;
+    }
+
+    #game {
+        height: 62vh;
+        min-height: 400px;
+    }
+
+    .controls-grid {
+        grid-template-columns: 52px 52px 52px;
+        grid-template-rows: 52px 52px;
+    }
+
+    .control-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 24px;
+    }
 }
 
 </style>
@@ -470,101 +427,49 @@ button:hover {
 
 <div class="container">
 
-    <h1>
-        ⭐ مغامرة النجوم ⭐
-    </h1>
-
-
-    <!-- المعلومات -->
+    <h1>⭐ مغامرة النجوم ⭐</h1>
 
     <div class="top-bar">
 
         <div class="box">
-
-            <div class="label">
-                المستوى
-            </div>
-
-            <div class="value" id="level">
-                1
-            </div>
-
+            <span class="label">النقاط</span>
+            <span class="value" id="score">0</span>
         </div>
 
-
         <div class="box">
-
-            <div class="label">
-                النجوم
-            </div>
-
-            <div class="value" id="score">
-                0 / 10
-            </div>
-
+            <span class="label">المستوى</span>
+            <span class="value" id="level">1</span>
         </div>
 
-
         <div class="box">
-
-            <div class="label">
-                الوقت
-            </div>
-
-            <div class="value" id="timer">
-                3
-            </div>
-
+            <span class="label">الوقت</span>
+            <span class="value" id="time">3</span>
         </div>
 
     </div>
 
 
-    <!-- اللعبة -->
-
     <div id="game">
 
-        <div class="cloud cloud1">
-            ☁️
-        </div>
+        <div id="player">😋</div>
 
-        <div class="cloud cloud2">
-            ☁️
-        </div>
-
-        <div class="cloud cloud3">
-            ☁️
-        </div>
+        <div id="star">⭐</div>
 
 
-        <div id="player">
-            😋
-        </div>
+        <div id="result">
 
-
-        <div id="star">
-            ⭐
-        </div>
-
-
-        <!-- شاشة النتيجة -->
-
-        <div id="resultScreen">
-
-            <div id="resultEmoji">
-                😄
-            </div>
+            <div id="resultEmoji">🎉</div>
 
             <div id="resultTitle">
                 أحسنت!
             </div>
 
             <div id="resultText">
-                لقد أكملت المستوى!
+                حصلت على 10 نجوم!
             </div>
 
-            <button id="resultButton">
-                المستوى التالي
+            <button id="restart">
+                🔄 العب من جديد
             </button>
 
         </div>
@@ -578,31 +483,19 @@ button:hover {
 
         <div class="controls-grid">
 
-            <div></div>
-
-            <button
-                class="control-btn"
-                data-key="ArrowUp">
+            <button class="control-btn up" data-key="ArrowUp">
                 ⬆️
             </button>
 
-            <div></div>
-
-            <button
-                class="control-btn"
-                data-key="ArrowLeft">
+            <button class="control-btn left" data-key="ArrowLeft">
                 ⬅️
             </button>
 
-            <button
-                class="control-btn"
-                data-key="ArrowDown">
+            <button class="control-btn down" data-key="ArrowDown">
                 ⬇️
             </button>
 
-            <button
-                class="control-btn"
-                data-key="ArrowRight">
+            <button class="control-btn right" data-key="ArrowRight">
                 ➡️
             </button>
 
@@ -612,14 +505,14 @@ button:hover {
 
 
     <div id="message">
-        استخدم الأسهم للوصول إلى النجمة 🎮
+        اجمع النجمة قبل انتهاء الوقت! ⭐
     </div>
 
 
     <div class="instructions">
-        اضغط باستمرار على
-        ⬅️ ➡️ ⬆️ ⬇️
-        للتحرك
+        💻 الكمبيوتر: استخدم أسهم لوحة المفاتيح
+        <br>
+        📱 الهاتف: استخدم أزرار الاتجاهات
     </div>
 
 </div>
@@ -627,775 +520,246 @@ button:hover {
 
 <script>
 
-/* =========================
-   عناصر اللعبة
-========================= */
+const game = document.getElementById("game");
 
-const game =
-    document.getElementById("game");
+const player = document.getElementById("player");
 
-const player =
-    document.getElementById("player");
+const star = document.getElementById("star");
 
-const star =
-    document.getElementById("star");
+const scoreElement = document.getElementById("score");
 
-const scoreText =
-    document.getElementById("score");
+const levelElement = document.getElementById("level");
 
-const timerText =
-    document.getElementById("timer");
+const timeElement = document.getElementById("time");
 
-const levelText =
-    document.getElementById("level");
+const message = document.getElementById("message");
 
-const message =
-    document.getElementById("message");
+const result = document.getElementById("result");
 
-const resultScreen =
-    document.getElementById("resultScreen");
+const resultTitle = document.getElementById("resultTitle");
 
-const resultEmoji =
-    document.getElementById("resultEmoji");
+const resultText = document.getElementById("resultText");
 
-const resultTitle =
-    document.getElementById("resultTitle");
+const resultEmoji = document.getElementById("resultEmoji");
 
-const resultText =
-    document.getElementById("resultText");
-
-const resultButton =
-    document.getElementById("resultButton");
+const restartButton = document.getElementById("restart");
 
 
-/* =========================
-   المستويات
-========================= */
+let playerX = 50;
 
-const levels = [
-
-    {
-        level: 1,
-        target: 10
-    },
-
-    {
-        level: 2,
-        target: 15
-    },
-
-    {
-        level: 3,
-        target: 20
-    }
-
-];
-
-
-let currentLevel = 0;
+let playerY = 50;
 
 let score = 0;
 
-
-/* =========================
-   موقع الشخصية
-========================= */
-
-let x = 50;
-
-let y = 200;
-
-
-/* =========================
-   السرعة
-========================= */
-
-const speed = 5;
-
-
-/* =========================
-   مفاتيح الحركة
-========================= */
-
-const keys = {
-
-    ArrowUp: false,
-
-    ArrowDown: false,
-
-    ArrowLeft: false,
-
-    ArrowRight: false
-
-};
-
-
-/* =========================
-   المؤقت
-========================= */
+let level = 1;
 
 let timeLeft = 3;
 
 let timer = null;
 
+let gameRunning = true;
 
-/* =========================
-   حالة اللعبة
-========================= */
+let keys = {};
 
-let gameOver = false;
+let targetScore = 10;
 
+let speed = 5;
 
-/* =========================
-   أسهم الكمبيوتر
-========================= */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+/* وضع اللاعب */
 
-        if (
-            event.key === "ArrowUp" ||
-            event.key === "ArrowDown" ||
-            event.key === "ArrowLeft" ||
-            event.key === "ArrowRight"
-        ) {
+function updatePlayer() {
 
-            event.preventDefault();
-
-            keys[event.key] = true;
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keyup",
-    function(event) {
-
-        if (
-            event.key === "ArrowUp" ||
-            event.key === "ArrowDown" ||
-            event.key === "ArrowLeft" ||
-            event.key === "ArrowRight"
-        ) {
-
-            keys[event.key] = false;
-
-        }
-
-    }
-);
-
-
-/* =========================
-   أزرار الهاتف
-========================= */
-
-const mobileButtons =
-    document.querySelectorAll(".control-btn");
-
-
-mobileButtons.forEach(function(button) {
-
-    const key =
-        button.dataset.key;
-
-
-    button.addEventListener(
-        "touchstart",
-        function(event) {
-
-            event.preventDefault();
-
-            keys[key] = true;
-
-        },
-        { passive: false }
-    );
-
-
-    button.addEventListener(
-        "touchend",
-        function(event) {
-
-            event.preventDefault();
-
-            keys[key] = false;
-
-        },
-        { passive: false }
-    );
-
-
-    button.addEventListener(
-        "touchcancel",
-        function(event) {
-
-            event.preventDefault();
-
-            keys[key] = false;
-
-        },
-        { passive: false }
-    );
-
-
-    button.addEventListener(
-        "pointerdown",
-        function(event) {
-
-            if (event.pointerType !== "mouse") {
-
-                event.preventDefault();
-
-                keys[key] = true;
-
-            }
-
-        }
-    );
-
-
-    button.addEventListener(
-        "pointerup",
-        function(event) {
-
-            if (event.pointerType !== "mouse") {
-
-                event.preventDefault();
-
-                keys[key] = false;
-
-            }
-
-        }
-    );
-
-
-    button.addEventListener(
-        "pointercancel",
-        function(event) {
-
-            if (event.pointerType !== "mouse") {
-
-                keys[key] = false;
-
-            }
-
-        }
-    );
-
-});
-
-
-/* =========================
-   الحركة
-========================= */
-
-function gameLoop() {
-
-    if (!gameOver) {
-
-        let dx = 0;
-
-        let dy = 0;
-
-
-        if (keys.ArrowRight) {
-            dx += 1;
-        }
-
-        if (keys.ArrowLeft) {
-            dx -= 1;
-        }
-
-        if (keys.ArrowDown) {
-            dy += 1;
-        }
-
-        if (keys.ArrowUp) {
-            dy -= 1;
-        }
-
-
-        /* الحركة القطرية */
-
-        if (
-            dx !== 0 &&
-            dy !== 0
-        ) {
-
-            const diagonal =
-                1 / Math.sqrt(2);
-
-            dx *= diagonal;
-
-            dy *= diagonal;
-
-        }
-
-
-        /* تحريك الشخصية */
-
-        x += dx * speed;
-
-        y += dy * speed;
-
-
-        /* حدود اللعبة */
-
-        const maxX =
-            game.clientWidth -
-            player.offsetWidth;
-
-        const maxY =
-            game.clientHeight -
-            player.offsetHeight;
-
-
-        x = Math.max(
-            0,
-            Math.min(x, maxX)
-        );
-
-
-        y = Math.max(
-            0,
-            Math.min(y, maxY)
-        );
-
-
-        /* تحديث المكان */
-
-        player.style.left =
-            x + "px";
-
-        player.style.top =
-            y + "px";
-
-
-        /* فحص النجمة */
-
-        checkCollision();
-
-    }
-
-
-    requestAnimationFrame(
-        gameLoop
-    );
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
 
 }
 
 
-/* =========================
-   الاصطدام
-========================= */
-
-function checkCollision() {
-
-    const playerRect =
-        player.getBoundingClientRect();
-
-    const starRect =
-        star.getBoundingClientRect();
-
-
-    const collision =
-
-        playerRect.left <
-        starRect.right &&
-
-        playerRect.right >
-        starRect.left &&
-
-        playerRect.top <
-        starRect.bottom &&
-
-        playerRect.bottom >
-        starRect.top;
-
-
-    if (collision) {
-
-        collectStar();
-
-    }
-
-}
-
-
-/* =========================
-   جمع النجمة
-========================= */
-
-function collectStar() {
-
-    if (gameOver) return;
-
-
-    score++;
-
-
-    const target =
-        levels[currentLevel].target;
-
-
-    scoreText.textContent =
-        score + " / " + target;
-
-
-    message.textContent =
-        "🎉 رائع! حصلت على نجمة!";
-
-
-    if (score >= target) {
-
-        clearInterval(timer);
-
-
-        if (
-            currentLevel <
-            levels.length - 1
-        ) {
-
-            showLevelComplete();
-
-        }
-
-        else {
-
-            showFinalWin();
-
-        }
-
-
-        return;
-
-    }
-
-
-    moveStar();
-
-    startTimer();
-
-}
-
-
-/* =========================
-   مكان النجمة
-========================= */
+/* وضع النجمة */
 
 function moveStar() {
 
-    const maxX =
-        game.clientWidth - 65;
+    const maxX = game.clientWidth - 65;
 
-    const maxY =
-        game.clientHeight - 75;
+    const maxY = game.clientHeight - 65;
 
+    const x = Math.random() * maxX;
 
-    const newX =
-        Math.floor(
-            Math.random() *
-            Math.max(1, maxX)
-        );
+    const y = Math.random() * maxY;
 
-
-    const newY =
-        Math.floor(
-            Math.random() *
-            Math.max(1, maxY)
-        );
-
-
-    star.style.left =
-        newX + "px";
-
-    star.style.top =
-        newY + "px";
+    star.style.left = x + "px";
+    star.style.top = y + "px";
 
 }
 
 
-/* =========================
-   المؤقت
-========================= */
+/* إعادة الوقت */
+
+function resetTimer() {
+
+    timeLeft = 3;
+
+    timeElement.textContent = timeLeft;
+
+}
+
+
+/* تشغيل المؤقت */
 
 function startTimer() {
 
     clearInterval(timer);
 
+    timer = setInterval(function() {
 
-    timeLeft = 3;
+        if (!gameRunning) {
+            return;
+        }
+
+        timeLeft--;
+
+        timeElement.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timer);
+
+            loseGame();
+
+        }
+
+    }, 1000);
+
+}
 
 
-    timerText.textContent =
-        timeLeft;
+/* فحص الاصطدام */
 
+function checkCollision() {
 
-    timer = setInterval(
+    const playerRect = player.getBoundingClientRect();
 
-        function() {
+    const starRect = star.getBoundingClientRect();
 
-            if (gameOver) return;
-
-
-            timeLeft--;
-
-
-            timerText.textContent =
-                timeLeft;
-
-
-            if (timeLeft <= 0) {
-
-                clearInterval(timer);
-
-                showLose();
-
-            }
-
-        },
-
-        1000
-
+    return !(
+        playerRect.right < starRect.left ||
+        playerRect.left > starRect.right ||
+        playerRect.bottom < starRect.top ||
+        playerRect.top > starRect.bottom
     );
 
 }
 
 
-/* =========================
-   الخسارة
-========================= */
+/* جمع النجمة */
 
-function showLose() {
+function collectStar() {
 
-    gameOver = true;
+    score++;
 
-    clearInterval(timer);
+    scoreElement.textContent = score;
 
-
-    timerText.textContent =
-        "0";
-
-
-    resultEmoji.textContent =
-        "😢";
-
-
-    resultTitle.textContent =
-        "انتهى الوقت!";
-
-
-    resultText.textContent =
-        "لم تصل إلى النجمة في الوقت المحدد.";
-
-
-    resultButton.textContent =
-        "🔄 إعادة المحاولة";
-
-
-    resultButton.onclick =
-        restartGame;
-
-
-    resultScreen.style.display =
-        "flex";
-
-}
-
-
-/* =========================
-   إكمال المستوى
-========================= */
-
-function showLevelComplete() {
-
-    gameOver = true;
-
-
-    resultEmoji.textContent =
-        "😄";
-
-
-    resultTitle.textContent =
-        "أحسنت!";
-
-
-    resultText.textContent =
-        "لقد أكملت المستوى " +
-        levels[currentLevel].level +
-        " بنجاح!";
-
-
-    resultButton.textContent =
-        "⭐ المستوى التالي";
-
-
-    resultButton.onclick =
-        nextLevel;
-
-
-    resultScreen.style.display =
-        "flex";
-
-}
-
-
-/* =========================
-   المستوى التالي
-========================= */
-
-function nextLevel() {
-
-    currentLevel++;
-
-    score = 0;
-
-    gameOver = false;
-
-
-    levelText.textContent =
-        levels[currentLevel].level;
-
-
-    scoreText.textContent =
-        "0 / " +
-        levels[currentLevel].target;
-
-
-    timerText.textContent =
-        "3";
-
-
-    message.textContent =
-        "🚀 هيا! ابدأ المستوى الجديد!";
-
-
-    resultScreen.style.display =
-        "none";
-
-
-    x = 50;
-
-    y = 200;
-
-
-    player.style.left =
-        x + "px";
-
-    player.style.top =
-        y + "px";
-
+    resetTimer();
 
     moveStar();
 
-    startTimer();
+    if (score >= targetScore) {
+
+        if (level < 3) {
+
+            level++;
+
+            levelElement.textContent = level;
+
+            targetScore += 5;
+
+            speed += 1;
+
+            message.textContent =
+                "🔥 مستوى جديد! استمر!";
+
+        } else {
+
+            winGame();
+
+        }
+
+    }
 
 }
 
 
-/* =========================
-   الفوز النهائي
-========================= */
+/* الفوز */
 
-function showFinalWin() {
+function winGame() {
 
-    gameOver = true;
+    gameRunning = false;
 
     clearInterval(timer);
 
+    resultEmoji.textContent = "🏆";
 
-    timerText.textContent =
-        "🏆";
+    resultTitle.textContent = "مبروك! 🎉";
 
+    resultText.textContent =
+        "لقد أنهيت جميع المستويات!";
 
-    resultEmoji.textContent =
-        "🏆";
-
-
-    resultTitle.textContent =
-        "لقد أنهيت اللعبة!";
-
-
-    resultText.innerHTML =
-
-        "فزت بجدارة! 🎉⭐🏆" +
-
-        "<br><br>" +
-
-        "المطور: " +
-
-        "<strong>khalil.kr</strong>";
-
-
-    resultButton.textContent =
-        "🔄 إعادة اللعب";
-
-
-    resultButton.onclick =
-        restartGame;
-
-
-    resultScreen.style.display =
-        "flex";
+    result.style.display = "flex";
 
 }
 
 
-/* =========================
-   إعادة اللعبة
-========================= */
+/* الخسارة */
+
+function loseGame() {
+
+    gameRunning = false;
+
+    clearInterval(timer);
+
+    resultEmoji.textContent = "😢";
+
+    resultTitle.textContent = "انتهى الوقت!";
+
+    resultText.textContent =
+        "جمعت " + score + " نجوم.";
+
+    result.style.display = "flex";
+
+}
+
+
+/* إعادة اللعبة */
 
 function restartGame() {
 
-    clearInterval(timer);
-
-
-    currentLevel = 0;
-
     score = 0;
 
-    timeLeft = 3;
+    level = 1;
 
-    gameOver = false;
+    targetScore = 10;
 
+    speed = 5;
 
-    levelText.textContent =
-        "1";
+    playerX = 50;
 
+    playerY = 50;
 
-    scoreText.textContent =
-        "0 / 10";
+    gameRunning = true;
 
+    scoreElement.textContent = score;
 
-    timerText.textContent =
-        "3";
+    levelElement.textContent = level;
 
+    resetTimer();
+
+    result.style.display = "none";
 
     message.textContent =
-        "استخدم الأسهم للوصول إلى النجمة 🎮";
+        "اجمع النجمة قبل انتهاء الوقت! ⭐";
 
-
-    resultScreen.style.display =
-        "none";
-
-
-    x = 50;
-
-    y = 200;
-
-
-    player.style.left =
-        x + "px";
-
-    player.style.top =
-        y + "px";
-
+    updatePlayer();
 
     moveStar();
 
@@ -1404,18 +768,159 @@ function restartGame() {
 }
 
 
-/* =========================
-   تشغيل اللعبة
-========================= */
+/* حركة اللاعب */
+
+function movePlayer() {
+
+    if (!gameRunning) {
+        return;
+    }
+
+
+    const maxX = game.clientWidth - player.offsetWidth;
+
+    const maxY = game.clientHeight - player.offsetHeight;
+
+
+    if (keys["ArrowUp"]) {
+        playerY -= speed;
+    }
+
+    if (keys["ArrowDown"]) {
+        playerY += speed;
+    }
+
+    if (keys["ArrowLeft"]) {
+        playerX -= speed;
+    }
+
+    if (keys["ArrowRight"]) {
+        playerX += speed;
+    }
+
+
+    /* منع الخروج من اللعبة */
+
+    playerX = Math.max(0, Math.min(playerX, maxX));
+
+    playerY = Math.max(0, Math.min(playerY, maxY));
+
+
+    updatePlayer();
+
+
+    if (checkCollision()) {
+        collectStar();
+    }
+
+
+    requestAnimationFrame(movePlayer);
+
+}
+
+
+/* لوحة المفاتيح */
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "ArrowUp" ||
+        event.key === "ArrowDown" ||
+        event.key === "ArrowLeft" ||
+        event.key === "ArrowRight"
+    ) {
+
+        event.preventDefault();
+
+        keys[event.key] = true;
+
+    }
+
+});
+
+
+document.addEventListener("keyup", function(event) {
+
+    keys[event.key] = false;
+
+});
+
+
+/* أزرار الهاتف */
+
+const controlButtons =
+    document.querySelectorAll(".control-btn");
+
+
+controlButtons.forEach(function(button) {
+
+    const key = button.dataset.key;
+
+
+    button.addEventListener("pointerdown", function(event) {
+
+        event.preventDefault();
+
+        keys[key] = true;
+
+    });
+
+
+    button.addEventListener("pointerup", function(event) {
+
+        event.preventDefault();
+
+        keys[key] = false;
+
+    });
+
+
+    button.addEventListener("pointercancel", function() {
+
+        keys[key] = false;
+
+    });
+
+
+    button.addEventListener("pointerleave", function() {
+
+        keys[key] = false;
+
+    });
+
+});
+
+
+/* زر إعادة اللعب */
+
+restartButton.addEventListener(
+    "click",
+    restartGame
+);
+
+
+/* منع قائمة الضغط المطول */
+
+document.addEventListener(
+    "contextmenu",
+    function(event) {
+        event.preventDefault();
+    }
+);
+
+
+/* بداية اللعبة */
+
+updatePlayer();
 
 moveStar();
 
 startTimer();
 
-gameLoop();
+movePlayer();
 
 </script>
 
 </body>
 </html>
-```
+
